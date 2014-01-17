@@ -1,5 +1,7 @@
 import QtQuick 2.1
-
+//import QtQuick.Controls 1.0
+//import QtQuick.Controls.Styles 1.0
+//import QtQuick.Layouts 1.0
 
 Rectangle {
     width: 800
@@ -17,35 +19,20 @@ Rectangle {
         objectName: "Titlebar"
         height: 24
         width: parent.width
-        color: "#1f1f1f"        
+        color: "#151515"        
         
-        Rectangle {
-            color: "red"
+        WMButton {
             id: close_button
             objectName: "CloseButton"
-            height: parent.height
-            width: 24
-            anchors {top: parent.top; right: parent.right}
-            MouseArea {
-                id: close_button_mouse
-                anchors.fill: parent
-                objectName: "CloseButtonMouse"
-                onClicked: screen.close()
-            }
-        }
+            active_color: "lightblue"
+            //onClicked: screen.close()
+        }        
         
         MouseArea {
             id: titlebar_mouse
             objectName: "TitlebarMouse"
             anchors.fill: parent
             anchors.rightMargin: close_button.width
-            
-            Text {
-                color: "#eee"
-                id: pos_info
-                text: "vX:" + viewerPosition.x + " vY:" + viewerPosition.y
-            
-            }
             
             property variant previousPosition
             property variant delta  
@@ -68,7 +55,7 @@ Rectangle {
         id: panel
         objectName: "Panel"
         width: parent.width
-        height: parent.height - titlebar.height
+        height: parent.height - titlebar.height - statusbar.height
         property int padding
         padding: 6
         anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: titlebar.height}
@@ -80,6 +67,29 @@ Rectangle {
             anchors {fill: parent; leftMargin: parent.padding; topMargin: parent.padding}
             objectName: "testText"
             text: '<font color="gray">00</font><font color="lightblue">1</font>'
+            font.pointSize: 10
+            textFormat: Text.StyledText
+            color: "#eee"
+        }
+    
+    }
+    
+    Rectangle {
+        id: statusbar
+        objectName: "Statusbar"
+        color: "#151515"
+        height: 24
+        width: parent.width
+        anchors { horizontalCenter: parent.horizontalCenter; bottom: parent.bottom }
+        property int padding
+        padding: 4
+    
+        Text {
+            id: statusbar_text
+            anchors {fill: parent; leftMargin: parent.padding; topMargin: parent.padding}
+            objectName: "testText"
+            //text: '<font color="lightblue">Status</font>'
+            text: "Window position: " + "X:" + viewerPosition.x + " Y:" + viewerPosition.y
             font.pointSize: 10
             textFormat: Text.StyledText
             color: "#eee"
