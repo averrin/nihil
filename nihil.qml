@@ -21,18 +21,29 @@ Rectangle {
         width: parent.width
         color: "#151515"        
         
-        WMButton {
-            id: close_button
-            objectName: "CloseButton"
-            active_color: "lightblue"
-            //onClicked: screen.close()
-        }        
+        Row {
+            id: btn_row
+            anchors {top: titlebar.top; right: titlebar.right}
+            spacing: 0
+            height: titlebar.height
+            
+            WMButton {
+                id: min_button
+                objectName: "MinButton"
+                active_color: "yellow"
+            }   
+            WMButton {
+                id: close_button
+                objectName: "CloseButton"
+                active_color: "red"
+            }
+        }
         
         MouseArea {
             id: titlebar_mouse
             objectName: "TitlebarMouse"
             anchors.fill: parent
-            anchors.rightMargin: close_button.width
+            anchors.rightMargin: btn_row.width
             
             property variant previousPosition
             property variant delta  

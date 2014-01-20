@@ -1,33 +1,47 @@
 import QtQuick 2.1
 
 Rectangle {
-    color: parent.color
-    height: parent.height
+    //color: "white"
+    height: titlebar.height
     width: 24
-    anchors {top: parent.top; right: parent.right}
     property color active_color: "red"
-    //property alias onClicked: ma.onClicked
+    signal clicked
+    id: btn
+    
+    property bool hovered
+    hovered: false
+    state: "normal"
+    color: titlebar.color
+    
+    states: [
+        State {
+            name: "active"; when: hovered
+            PropertyChanges { target: btn; color: btn.active_color}
+        },
+        State {
+            name: "normal"; when: !hovered
+            PropertyChanges { target: parent.parent; color: titlebar.color}
+        }
+        ]
+    /*
+    Text {
+        text: parent.state
+        color: "red"
+    }
+    */
+    
+    transitions: Transition {
+        ColorAnimation { duration: 300 }
+    }
 
     MouseArea {
-        id: ma
         hoverEnabled: true
         anchors.fill: parent
+        onClicked: parent.clicked()
         
-        property bool hovered
-        hovered: false
-        onEntered: { hovered = true }
-        onExited: { hovered = false }
         
-        states: State {
-            name: "active"; when: parent.hovered
-            PropertyChanges { 
-                target: parent.parent.parent
-                color: parent.parent.parent.active_color
-            }
-        }
+        onEntered: { parent.hovered = true }
+        onExited: { parent.hovered = false }
         
-        transitions: Transition {
-            ColorAnimation { duration: 300 }
-        }
     }
 }

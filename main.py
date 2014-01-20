@@ -23,7 +23,8 @@ class App(object):
         self.Panel = self.Screen.findChild(QObject, "Panel")
 
         self.Screen.move.connect(self.moveWindow)
-        self.Screen.close.connect(exit)
+        self.Screen.findChild(QObject, "CloseButton").clicked.connect(exit)
+        self.Screen.findChild(QObject, "MinButton").clicked.connect(self.view.showMinimized)
         self.Screen.toggleMax.connect(self.toggleMaxWindow)
 
         self.view.show()
