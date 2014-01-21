@@ -20,7 +20,7 @@ Rectangle {
         },
         State {
             name: "normal"; when: !hovered
-            PropertyChanges { target: parent.parent; color: titlebar.color}
+            PropertyChanges { target: btn; color: titlebar.color}
         }
         ]
     /*
